@@ -12,8 +12,7 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Data
-public class CreateIssueResponsePojo
-{
+public class CreateIssueResponsePojo {
     private String url;
     private String repository_url;
     private String labels_url;
@@ -47,7 +46,7 @@ public class CreateIssueResponsePojo
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Getter
     @Data
-    public static class ClosedBy{
+    public static class ClosedBy {
         private String login;
         private int id;
         private String node_id;
@@ -71,7 +70,7 @@ public class CreateIssueResponsePojo
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Getter
     @Data
-    public static class Label{
+    public static class Label {
         private long id;
         private String node_id;
         private String url;
@@ -85,7 +84,7 @@ public class CreateIssueResponsePojo
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Getter
     @Data
-    public static class Reactions{
+    public static class Reactions {
         private String url;
         private int total_count;
         private int laugh;
@@ -99,7 +98,7 @@ public class CreateIssueResponsePojo
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Getter
     @Data
-    public static class User{
+    public static class User {
         private String login;
         private int id;
         private String node_id;

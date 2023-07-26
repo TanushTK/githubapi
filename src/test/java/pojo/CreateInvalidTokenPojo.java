@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Data
-public class CreateInvalidTokenPojo
-{
+public class CreateInvalidTokenPojo {
     private String message;
     private String documentation_url;
 }

@@ -13,15 +13,21 @@ import uitls.ProviderManager;
 import uitls.BuilderClass;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static uitls.BuilderClass.*;
-import static uitls.ResponseBuilderClass.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static uitls.BuilderClass.buildHeaders;
+import static uitls.BuilderClass.buildBody;
+import static uitls.BuilderClass.buildHeadersWithInvalidToken;
+import static uitls.ResponseBuilderClass.headSecurityValidation;
+import static uitls.ResponseBuilderClass.buildResponseToPojo;
+import static uitls.ResponseBuilderClass.buildResponseInvalidToPojo;
 
-public class GitHubRepoCreationTest
-{
+public class GitHubRepoCreationTest {
     @Test
     public void createRepoValidCase() throws JsonProcessingException {
-        String apiUrl = ProviderManager.getBaseURL()+ ProviderManager.getEndPoint("repo");
+        String apiUrl = ProviderManager.getBaseURL() + ProviderManager.getEndPoint("repo");
         RequestSpecification requestSpec = RestAssured.given();
         buildBody(requestSpec);
         buildHeaders(requestSpec);
@@ -30,28 +36,28 @@ public class GitHubRepoCreationTest
         CreateRepoResponsePOJO createRepoResponsePOJO = buildResponseToPojo(response);
         assertThat(createRepoResponsePOJO.getName(), is(equalToIgnoringCase(BuilderClass.repoName)));
         assertThat(createRepoResponsePOJO.getId(), notNullValue());
-        assertThat(createRepoResponsePOJO.getOwner().getLogin(),equalToIgnoringCase("TanushTK"));
-        assertThat(createRepoResponsePOJO.getOpen_issues(),is(greaterThanOrEqualTo(0)));
+        assertThat(createRepoResponsePOJO.getOwner().getLogin(), equalToIgnoringCase("TanushTK"));
+        assertThat(createRepoResponsePOJO.getOpen_issues(), is(greaterThanOrEqualTo(0)));
     }
 
     @Test
     @Description("Create Repo using Invalid Bearer Token")
     public void createRepoInValidCase() throws JsonProcessingException {
-        String apiUrl = ProviderManager.getBaseURL()+ ProviderManager.getEndPoint("repo");
+        String apiUrl = ProviderManager.getBaseURL() + ProviderManager.getEndPoint("repo");
         RequestSpecification requestSpec = RestAssured.given();
         buildBody(requestSpec);
         buildHeadersWithInvalidToken(requestSpec);
         Response response = requestSpec.post(apiUrl);
         headSecurityValidation(response);
         CreateInvalidTokenPojo createInvalidTokenPojo = buildResponseInvalidToPojo(response);
-        assertThat(createInvalidTokenPojo.getMessage(),equalToIgnoringCase("Bad credentials"));
-        assertThat(createInvalidTokenPojo.getDocumentation_url(),equalToIgnoringCase("https://docs.github.com/rest"));
+        assertThat(createInvalidTokenPojo.getMessage(), equalToIgnoringCase("Bad credentials"));
+        assertThat(createInvalidTokenPojo.getDocumentation_url(), equalToIgnoringCase("https://docs.github.com/rest"));
     }
 
     @Test
     @Description("Create Repo using Invalid Base URL")
     public void createRepoInValidEndPoint() throws JsonProcessingException {
-        String apiUrl = ProviderManager.getBaseURL()+ ProviderManager.getEndPoint("invalidrepo");
+        String apiUrl = ProviderManager.getBaseURL() + ProviderManager.getEndPoint("invalidrepo");
         RequestSpecification requestSpec = RestAssured.given();
         buildBody(requestSpec);
         buildHeadersWithInvalidToken(requestSpec);
@@ -59,7 +65,7 @@ public class GitHubRepoCreationTest
         headSecurityValidation(response);
         System.out.println(response.prettyPrint());
         CreateInvalidTokenPojo createInvalidTokenPojo = buildResponseInvalidToPojo(response);
-        assertThat(createInvalidTokenPojo.getMessage(),equalToIgnoringCase("Bad credentials"));
-        assertThat(createInvalidTokenPojo.getDocumentation_url(),equalToIgnoringCase("https://docs.github.com/rest"));
+        assertThat(createInvalidTokenPojo.getMessage(), equalToIgnoringCase("Bad credentials"));
+        assertThat(createInvalidTokenPojo.getDocumentation_url(), equalToIgnoringCase("https://docs.github.com/rest"));
     }
 }

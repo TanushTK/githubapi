@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 @Data
-public class CreateRepoRequestPojo
-{
+public class CreateRepoRequestPojo {
     private String name;
 }

@@ -19,8 +19,6 @@ public class ProviderManager {
                 return properties.getProperty("invalidaccessToken");
             case "baseurl":
                 return properties.getProperty("baseurl");
-            default:
-                // code block
         }
         return properties.getProperty("accessToken");
     }

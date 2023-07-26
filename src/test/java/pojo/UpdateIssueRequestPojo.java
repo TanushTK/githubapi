@@ -8,10 +8,9 @@ import java.util.ArrayList;
 
 @Getter
 @Data
-public class UpdateIssueRequestPojo
-{
-        private String title;
-        private String body;
-        private String state;
-        private ArrayList<String> labels;
+public class UpdateIssueRequestPojo {
+    private String title;
+    private String body;
+    private String state;
+    private ArrayList<String> labels;
 }

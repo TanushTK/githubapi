@@ -8,19 +8,18 @@ import org.testng.annotations.Test;
 import pojo.CreateIssueResponsePojo;
 import uitls.ProviderManager;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static uitls.BuilderClass.*;
+import static uitls.BuilderClass.buildCreateIssueBody;
+import static uitls.BuilderClass.buildHeaders;
+import static uitls.BuilderClass.buildUpdateIssueBody;
 import static uitls.ResponseBuilderClass.buildIssueResponseToPojo;
 import static uitls.ResponseBuilderClass.headSecurityValidation;
 
-public class CreateUpdateIssueTest
-{
+public class CreateUpdateIssueTest {
     private int id;
 
     @Test(invocationCount = 5)
     public void createIssueValidCase() throws JsonProcessingException {
-        String apiUrl = ProviderManager.getBaseURL()+ ProviderManager.getEndPoint("issues");
+        String apiUrl = ProviderManager.getBaseURL() + ProviderManager.getEndPoint("issues");
         RequestSpecification requestSpec = RestAssured.given();
         buildCreateIssueBody(requestSpec);
         buildHeaders(requestSpec);
@@ -30,9 +29,9 @@ public class CreateUpdateIssueTest
         id = createIssueResponsePojo.getNumber();
     }
 
-    @Test(dependsOnMethods = { "createIssueValidCase" },invocationCount = 5)
+    @Test(dependsOnMethods = {"createIssueValidCase"}, invocationCount = 5)
     public void updateIssueValidCase() throws JsonProcessingException {
-        String apiUrl = ProviderManager.getBaseURL()+ ProviderManager.getEndPoint("issues")+id;
+        String apiUrl = ProviderManager.getBaseURL() + ProviderManager.getEndPoint("issues") + id;
         RequestSpecification requestSpec = RestAssured.given();
         buildUpdateIssueBody(requestSpec);
         buildHeaders(requestSpec);
