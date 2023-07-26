@@ -13,10 +13,7 @@ import uitls.ProviderManager;
 import uitls.BuilderClass;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.equalToIgnoringCase;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.*;
 import static uitls.BuilderClass.buildHeaders;
 import static uitls.BuilderClass.buildBody;
 import static uitls.BuilderClass.buildHeadersWithInvalidToken;
@@ -38,6 +35,19 @@ public class GitHubRepoCreationTest {
         assertThat(createRepoResponsePOJO.getId(), notNullValue());
         assertThat(createRepoResponsePOJO.getOwner().getLogin(), equalToIgnoringCase("TanushTK"));
         assertThat(createRepoResponsePOJO.getOpen_issues(), is(greaterThanOrEqualTo(0)));
+        assertThat(createRepoResponsePOJO.getUrl(), containsStringIgnoringCase("TanushTK"));
+        assertThat(createRepoResponsePOJO.getOwner().getUrl(), containsStringIgnoringCase("TanushTK"));
+        assertThat(createRepoResponsePOJO.getOwner().getHtml_url(), containsStringIgnoringCase("TanushTK"));
+        assertThat(createRepoResponsePOJO.getOwner().getRepos_url(), containsStringIgnoringCase("TanushTK"));
+        assertThat(createRepoResponsePOJO.getOwner().getType(), containsStringIgnoringCase("User"));
+        assertThat(createRepoResponsePOJO.getHtml_url(), containsStringIgnoringCase("TanushTK"));
+        assertThat(createRepoResponsePOJO.getVisibility(), containsStringIgnoringCase("public"));
+        assertThat(createRepoResponsePOJO.getDefault_branch(), containsStringIgnoringCase("main"));
+        assertThat(createRepoResponsePOJO.getPermissions().isAdmin(), is(true));
+        assertThat(createRepoResponsePOJO.getPermissions().isMaintain(), is(true));
+        assertThat(createRepoResponsePOJO.getPermissions().isPush(), is(true));
+        assertThat(createRepoResponsePOJO.getPermissions().isTriage(), is(true));
+        assertThat(createRepoResponsePOJO.getPermissions().isPull(), is(true));
     }
 
     @Test
