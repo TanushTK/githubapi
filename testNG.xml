@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="GitHubAPISuite" parallel="tests" thread-count="2">
+    <test name="GitHubTestCase2">
+        <classes>
+            <class name="testcases.CreateUpdateIssueTest"/>
+        </classes>
+    </test>
+    <test name="GitHubTestCase1">
+        <classes>
+            <class name="testcases.GitHubRepoCreationTest"/>
+        </classes>
+    </test>
+</suite>
